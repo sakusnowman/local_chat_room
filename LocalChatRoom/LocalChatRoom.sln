@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2027
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocalChatRoom", "LocalChatRoom\LocalChatRoom.csproj", "{D9507A38-690B-4B55-A669-29AB72683BEC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D9507A38-690B-4B55-A669-29AB72683BEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9507A38-690B-4B55-A669-29AB72683BEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9507A38-690B-4B55-A669-29AB72683BEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9507A38-690B-4B55-A669-29AB72683BEC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5A44DF34-C2A1-43AE-A7F6-B0AF6BF52A4C}
+	EndGlobalSection
+EndGlobal

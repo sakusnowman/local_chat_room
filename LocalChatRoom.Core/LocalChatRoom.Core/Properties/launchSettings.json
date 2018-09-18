@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "LocalChatRoom.Core": {
+      "commandName": "Project",
+      "commandLineArgs": "Chats"
+    }
+  }
+}

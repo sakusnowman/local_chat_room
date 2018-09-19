@@ -13,16 +13,18 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="1" TextWrapping="NoWrap" x:Name="_chatMessageText"></TextBlock>
+        <ScrollViewer Grid.Row="1">
+            <TextBlock  TextWrapping="Wrap" x:Name="_chatMessageText"></TextBlock>
+        </ScrollViewer>
 
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition Width="100"/>
             </Grid.ColumnDefinitions>
-            <TextBox x:Name="_myMessageText" KeyUp="_myMessageText_KeyUp" AcceptsReturn="True">
-                
-            </TextBox>
+            <ScrollViewer>
+                <TextBox x:Name="_myMessageText" KeyUp="_myMessageText_KeyUp" TextWrapping="Wrap" AcceptsReturn="True" />
+            </ScrollViewer>
             <Button Click="Button_Click" Content="Send" Grid.Column="1"/>
         </Grid>
     </Grid>

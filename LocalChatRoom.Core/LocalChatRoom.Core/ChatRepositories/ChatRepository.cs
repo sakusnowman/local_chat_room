@@ -10,6 +10,7 @@ namespace LocalChatRoom.Core.ChatRepositories
     class ChatRepository : IChatRepository
     {
         readonly FileSystemWatcher watcher;
+        private readonly string directoryPath;
         bool failedToRead = false;
         string changedFilePath = "";
         Action<string> action;
@@ -18,6 +19,7 @@ namespace LocalChatRoom.Core.ChatRepositories
         public ChatRepository(string directoryPath)
         {
             watcher = new FileSystemWatcher(directoryPath);
+            this.directoryPath = directoryPath;
         }
 
         public void EndChat()
@@ -36,8 +38,11 @@ namespace LocalChatRoom.Core.ChatRepositories
             var today = DateTime.Today;
             var fileName = "" + today.Year + today.Month + today.Day + ".chat";
 
-            StreamWriter writer = new StreamWriter(fileName, true, Encoding.Default);
-            await writer.WriteAsync(message);
+            StreamWriter writer = new StreamWriter(Path.Combine(directoryPath, fileName), true, Encoding.Default);
+            foreach(var v in message.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                await writer.WriteLineAsync(v);
+            }
             writer.Close();
         }
 
@@ -85,7 +90,7 @@ namespace LocalChatRoom.Core.ChatRepositories
 
         void Update()
         {
-            using (var reader = new StreamReader(changedFilePath))
+            using (var reader = new StreamReader(changedFilePath, Encoding.Default))
             {
                 var value = reader.ReadToEnd();
                 reader.Close();

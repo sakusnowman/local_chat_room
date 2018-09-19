@@ -26,7 +26,7 @@ namespace LocalChatRoom
             process.StartInfo.UseShellExecute = false;
             process.StartInfo.RedirectStandardOutput = true;
             process.StartInfo.RedirectStandardInput = true;
-            process.StartInfo.CreateNoWindow = true;
+            process.StartInfo.CreateNoWindow = false;
             process.StartInfo.FileName = exePath;
             process.StartInfo.Arguments = chatDirectoryPath;
             process.OutputDataReceived += new DataReceivedEventHandler((object sender, DataReceivedEventArgs e) =>
@@ -34,7 +34,8 @@ namespace LocalChatRoom
                 actionWhenRecivedNewMessage(e.Data);
             });
 
-            process.Start();
+            var a = process.Start();
+            process.BeginOutputReadLine();
         }
 
         public void EndChat()
@@ -70,12 +71,7 @@ namespace LocalChatRoom
         {
             if (string.IsNullOrEmpty(notSendMessage)) return;
             process.StandardInput.WriteLine(notSendMessage);
-            var today = DateTime.Today;
-            using (var writer = new StreamWriter(Path.Combine(chatDirectoryPath, "" + today.Year + today.Month + today.Day + ".chat"), true, Encoding.Default))
-            {
-                writer.WriteLine(notSendMessage);
-                notSendMessage = "";
-            }
+            return;
         }
     }
 }

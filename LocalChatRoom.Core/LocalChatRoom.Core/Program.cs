@@ -15,6 +15,7 @@ namespace LocalChatRoom.Core
             if (args.Length != 1) return -1;
             if (Directory.Exists(args[0]) == false) return -2;
             IChatRepository repository = new ChatRepository(args[0]);
+            Console.WriteLine("StartChat");
             repository.OnRecivedNewMessage(s =>
             {
                 if (string.IsNullOrEmpty(s)) return;

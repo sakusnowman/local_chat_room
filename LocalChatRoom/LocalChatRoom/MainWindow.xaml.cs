@@ -21,14 +21,17 @@ namespace LocalChatRoom
     public partial class MainWindow : Window
     {
         ChatRepository chatRepository;
+
         public MainWindow()
         {
             InitializeComponent();
+
             chatRepository = new ChatRepository(s =>
             {
-                this._chatMessageText.Text += s;
-            }, @"C:\ChatDemo");
-            chatRepository.StartChat(@"C:\Users\Owner\git\local_chat_room\LocalChatRoom.Core\LocalChatRoom.Core\bin\Release\netcoreapp2.0\win-x64\publish\LocalChatRoom.Core.exe");
+                this.Dispatcher.Invoke((Action)(() => this._chatMessageText.Text += s + Environment.NewLine));
+            }, Config.ChatDirectoryPath);
+            chatRepository.StartChat("LocalChatRoom.Core.exe");
+            chatRepository.SendMessage("<<  IN  >> " + Config.UserName);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -38,7 +41,7 @@ namespace LocalChatRoom
 
         private void _myMessageText_KeyUp(object sender, KeyEventArgs e)
         {
-            if(e.KeyboardDevice.IsKeyDown(Key.LeftCtrl) || e.KeyboardDevice.IsKeyDown(Key.RightCtrl))
+            if (e.KeyboardDevice.IsKeyDown(Key.LeftCtrl) || e.KeyboardDevice.IsKeyDown(Key.RightCtrl))
             {
                 if (e.Key.Equals(Key.M))
                 {
@@ -49,12 +52,13 @@ namespace LocalChatRoom
 
         private void SendMessage()
         {
-            chatRepository.SendMessage(_myMessageText.Text);
+            chatRepository.SendMessage(Config.UserName + ">>" + _myMessageText.Text);
             this._myMessageText.Text = "";
         }
 
         private void Window_Closed(object sender, EventArgs e)
         {
+            chatRepository.SendMessage("<<  OUT  >> " + Config.UserName);
             chatRepository.EndChat();
         }
     }
